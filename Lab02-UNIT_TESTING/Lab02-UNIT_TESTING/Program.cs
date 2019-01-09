@@ -27,29 +27,62 @@ namespace Lab02_UNIT_TESTING
                 case 1:
                     ViewBalance();
                     break;
+
+                case 2:
+                    Withdraw();
+                    break;
+
+                case 3:
+                    Deposit();
+                    break;
+
+                case 4:
+                    Cancel();
+                    break;
+
+                default:
+                    Console.WriteLine("Sorry, please make a selection.");
+                    Console.ReadLine();
+                    break;
             }
         }
 
         public static decimal ViewBalance()
         {
-            Console.WriteLine($"Current Balance: ${balance}");
+            Console.Write($"Current Balance: ${balance}");
             Console.ReadLine();
             return balance;
         } 
 
-        //public static decimal Withdraw()
-        //{
+        public static decimal Withdraw()
+        {
+            Console.WriteLine("How much would you like to withdraw?");
+            Console.Write("$");
+            decimal withdrawAmt = Convert.ToDecimal(Console.ReadLine());
+            balance = balance - withdrawAmt;
+            Console.WriteLine("Please take your cash");
+            Console.WriteLine($"Your new balance is: ${balance}");
+            Console.ReadLine();
+            return balance;
+        }
 
-        //}
+        public static decimal Deposit()
+        {
+            Console.WriteLine("How much would you like to deposit?");
+            Console.Write("$");
+            decimal withdrawAmt = Convert.ToDecimal(Console.ReadLine());
+            balance = balance + withdrawAmt;
+            Console.WriteLine("Deposit successful");
+            Console.WriteLine($"Your new balance is: ${balance}");
+            Console.ReadLine();
+            return balance;
+        }
 
-        //public static decimal Deposit()
-        //{
-
-        //}
-
-        //public static void Cancel()
-        //{
-
-        //}
+        public static void Cancel()
+        {
+            Console.WriteLine("Thank you for using your Virtual ATM!");
+            Console.ReadLine();
+            return;
+        }
     }
 }
