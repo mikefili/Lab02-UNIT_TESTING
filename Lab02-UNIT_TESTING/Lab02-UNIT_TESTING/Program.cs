@@ -56,25 +56,41 @@ namespace Lab02_UNIT_TESTING
 
         public static decimal Withdraw()
         {
-            Console.WriteLine("How much would you like to withdraw?");
-            Console.Write("$");
-            decimal withdrawAmt = Convert.ToDecimal(Console.ReadLine());
-            balance = balance - withdrawAmt;
-            Console.WriteLine("Please take your cash");
-            Console.WriteLine($"Your new balance is: ${balance}");
-            Console.ReadLine();
+            try
+            {
+                Console.WriteLine("How much would you like to withdraw?");
+                Console.Write("$");
+                decimal withdrawAmt = Convert.ToDecimal(Console.ReadLine());
+                balance = balance - withdrawAmt;
+                Console.WriteLine("Please take your cash");
+                Console.WriteLine($"Your new balance is: ${balance}");
+                Console.ReadLine();
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please enter the amount as a number.");
+                Console.ReadLine();
+            }
             return balance;
         }
 
         public static decimal Deposit()
         {
-            Console.WriteLine("How much would you like to deposit?");
-            Console.Write("$");
-            decimal withdrawAmt = Convert.ToDecimal(Console.ReadLine());
-            balance = balance + withdrawAmt;
-            Console.WriteLine("Deposit successful");
-            Console.WriteLine($"Your new balance is: ${balance}");
-            Console.ReadLine();
+            try
+            {
+                Console.WriteLine("How much would you like to deposit?");
+                Console.Write("$");
+                decimal withdrawAmt = Convert.ToDecimal(Console.ReadLine());
+                balance = balance + withdrawAmt;
+                Console.WriteLine("Deposit successful");
+                Console.WriteLine($"Your new balance is: ${balance}");
+                Console.ReadLine();
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please enter the amount as a number.");
+                Console.ReadLine();
+            }
             return balance;
         }
 
