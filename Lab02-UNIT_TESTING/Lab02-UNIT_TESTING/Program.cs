@@ -27,20 +27,30 @@ namespace Lab02_UNIT_TESTING
                 case 1:
                     ViewBalance();
                     break;
+
+                case 2:
+                    Withdraw();
+                    break;
             }
         }
 
         public static decimal ViewBalance()
         {
-            Console.WriteLine($"Current Balance: ${balance}");
+            Console.Write($"Current Balance: ${balance}");
             Console.ReadLine();
             return balance;
         } 
 
-        //public static decimal Withdraw()
-        //{
-
-        //}
+        public static decimal Withdraw()
+        {
+            Console.WriteLine("How much would you like to withdraw?");
+            Console.Write("$");
+            decimal withdrawAmt = Convert.ToDecimal(Console.ReadLine());
+            balance = balance - withdrawAmt;
+            Console.WriteLine($"Your new balance is: ${balance}");
+            Console.ReadLine();
+            return balance;
+        }
 
         //public static decimal Deposit()
         //{
