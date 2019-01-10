@@ -2,7 +2,7 @@
 
 namespace Lab02_UNIT_TESTING
 {
-    class Program
+    public class Program
     {
         // declare balance
         public static decimal balance = 5000;
