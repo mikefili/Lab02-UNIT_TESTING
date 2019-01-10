@@ -70,6 +70,7 @@ namespace Lab02_UNIT_TESTING
             Console.Write($"Current Balance: ${balance}");
             Console.WriteLine();
             Console.WriteLine();
+            AdditionalTransaction();
 
             return balance;
         } 
@@ -86,7 +87,8 @@ namespace Lab02_UNIT_TESTING
                     balance = balance - withdrawAmt;
                     Console.WriteLine("Please take your cash");
                     Console.WriteLine($"Your new balance is: ${balance}");
-                    Console.ReadLine();
+                    Console.WriteLine();
+                    AdditionalTransaction();
                 }
                 else
                 {
@@ -114,7 +116,8 @@ namespace Lab02_UNIT_TESTING
                 balance = balance + withdrawAmt;
                 Console.WriteLine("Deposit successful");
                 Console.WriteLine($"Your new balance is: ${balance}");
-                Console.ReadLine();
+                Console.WriteLine();
+                AdditionalTransaction();
             }
             catch (FormatException)
             {
@@ -131,6 +134,22 @@ namespace Lab02_UNIT_TESTING
             Console.WriteLine("Press ENTER to close");
             Console.ReadLine();
             Environment.Exit(0);
+        }
+
+        public static void AdditionalTransaction()
+        {
+            Console.WriteLine("Would you like another transaction?");
+            Console.WriteLine("Y/N: ");
+            string newTransactionResponse = Console.ReadLine();
+            if (newTransactionResponse.ToUpper() == "Y")
+            {
+                Console.Clear();
+                UserInterface();
+            }
+            else
+            {
+                Cancel();
+            }
         }
     }
 }
