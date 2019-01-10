@@ -33,9 +33,11 @@ The application will run on its own once opened. Select a transaction type by ty
 - You will receive a deposit confirmation and see your updated balance.  
 - Follow the prompts to either begin another transaction or close the program.
 
-![Deposit](/Lab02-UNIT_TESTING/Deposit.PNG)
+![Deposit](/Lab02-UNIT_TESTING/Deposit_Cap.PNG)
 
 #### Close ATM
 - To close the ATM type "4" when prompted.
 
 ![Close ATM](/Lab02-UNIT_TESTING/Close_Cap.PNG)
+
+## Thank You!
