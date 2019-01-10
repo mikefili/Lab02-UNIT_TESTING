@@ -17,7 +17,7 @@ The application will run on its own once opened. Select a transaction type by ty
 - Once complete, you will be asked if you want to start another transaction. 
 - Follow the prompts to either begin another transaction or close the program.
 
-![View Balance](../../View_Balance_Cap.PNG)
+![View Balance](/View_Balance_Cap.PNG)
 
 #### Withdraw Money
 - To withdraw money type "2" when prompted.
@@ -25,7 +25,7 @@ The application will run on its own once opened. Select a transaction type by ty
 - You can take your cash and see your updated balance.  
 - Follow the prompts to either begin another transaction or close the program.
 
-![Withdraw](../../Withdraw_Cap.PNG)
+![Withdraw](/Withdraw_Cap.PNG)
 
 #### Deposit Money
 - To deposit money type "3" when prompted.
@@ -33,9 +33,9 @@ The application will run on its own once opened. Select a transaction type by ty
 - You will receive a deposit confirmation and see your updated balance.  
 - Follow the prompts to either begin another transaction or close the program.
 
-![Deposit](../../Deposit.PNG)
+![Deposit](/Deposit.PNG)
 
 #### Close ATM
 - To close the ATM type "4" when prompted.
 
-![Close ATM](../../Close_Cap.PNG)
+![Close ATM](/Close_Cap.PNG)
