@@ -10,21 +10,30 @@ namespace Lab02_UNIT_TESTING
         // declare Main method
         static void Main(string[] args)
         {
+            Console.WriteLine("********************************************");
+            Console.WriteLine("       Welcome to your Virtual ATM!");
+            UserInterface();
+        }
+
+        public static void UserInterface()
+        {
             string pick;
             bool whileRunning = true;
             while (whileRunning == true)
             {
                 // welcome user and present options
-                Console.WriteLine("Welcome to your Virtual ATM!");
-                Console.WriteLine("****************************");
-                Console.WriteLine("1) View Balance");
-                Console.WriteLine("2) Withdraw");
-                Console.WriteLine("3) Deposit");
-                Console.WriteLine("4) Cancel");
+                Console.WriteLine("********************************************");
                 Console.WriteLine();
-                Console.WriteLine("What type of transaction would you like?");
-                Console.WriteLine("****************************************");
-                Console.Write("Selection: ");
+                Console.WriteLine("    1) View Balance");
+                Console.WriteLine("    2) Withdraw");
+                Console.WriteLine("    3) Deposit");
+                Console.WriteLine("    4) Cancel");
+                Console.WriteLine();
+                Console.WriteLine("********************************************");
+                Console.WriteLine("  What type of transaction would you like?");
+                Console.WriteLine("********************************************");
+                Console.WriteLine();
+                Console.Write("Your Selection: ");
                 pick = Console.ReadLine();
 
                 if (pick == "")
@@ -57,8 +66,12 @@ namespace Lab02_UNIT_TESTING
 
         public static decimal ViewBalance()
         {
+            Console.WriteLine();
             Console.Write($"Current Balance: ${balance}");
-            Console.ReadLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            AdditionalTransaction();
+
             return balance;
         } 
 
@@ -74,7 +87,8 @@ namespace Lab02_UNIT_TESTING
                     balance = balance - withdrawAmt;
                     Console.WriteLine("Please take your cash");
                     Console.WriteLine($"Your new balance is: ${balance}");
-                    Console.ReadLine();
+                    Console.WriteLine();
+                    AdditionalTransaction();
                 }
                 else
                 {
@@ -87,12 +101,6 @@ namespace Lab02_UNIT_TESTING
             {
                 Console.WriteLine("Please enter the amount as a number.");
                 Console.ReadLine();
-                Withdraw();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("You hit the generic Exception");
-                Console.WriteLine("ERROR: " + e.Message);
                 Withdraw();
             }
             return balance;
@@ -108,17 +116,14 @@ namespace Lab02_UNIT_TESTING
                 balance = balance + withdrawAmt;
                 Console.WriteLine("Deposit successful");
                 Console.WriteLine($"Your new balance is: ${balance}");
-                Console.ReadLine();
+                Console.WriteLine();
+                AdditionalTransaction();
             }
             catch (FormatException)
             {
                 Console.WriteLine("Please enter the amount as a number.");
                 Console.ReadLine();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("You hit the generic Exception");
-                Console.WriteLine("ERROR: " + e.Message);
+                Deposit();
             }
             return balance;
         }
@@ -129,6 +134,22 @@ namespace Lab02_UNIT_TESTING
             Console.WriteLine("Press ENTER to close");
             Console.ReadLine();
             Environment.Exit(0);
+        }
+
+        public static void AdditionalTransaction()
+        {
+            Console.WriteLine("Would you like another transaction?");
+            Console.WriteLine("Y/N: ");
+            string newTransactionResponse = Console.ReadLine();
+            if (newTransactionResponse.ToUpper() == "Y")
+            {
+                Console.Clear();
+                UserInterface();
+            }
+            else
+            {
+                Cancel();
+            }
         }
     }
 }
