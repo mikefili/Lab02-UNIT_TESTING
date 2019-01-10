@@ -10,40 +10,48 @@ namespace Lab02_UNIT_TESTING
         // declare Main method
         static void Main(string[] args)
         {
-            // welcome user and present options
-            Console.WriteLine("Welcome to your Virtual ATM!");
-            Console.WriteLine("****************************");
-            Console.WriteLine("1) View Balance");
-            Console.WriteLine("2) Withdraw");
-            Console.WriteLine("3) Deposit");
-            Console.WriteLine("4) Cancel");
-            Console.WriteLine();
-            Console.WriteLine("What type of transaction would you like?");
-            Console.WriteLine("****************************************");
-            Console.Write("Selection: ");
-            int pick = int.Parse(Console.ReadLine());
-            switch (pick)
+            string pick;
+            bool whileRunning = true;
+            while (whileRunning == true)
             {
-                case 1:
-                    ViewBalance();
-                    break;
+                // welcome user and present options
+                Console.WriteLine("Welcome to your Virtual ATM!");
+                Console.WriteLine("****************************");
+                Console.WriteLine("1) View Balance");
+                Console.WriteLine("2) Withdraw");
+                Console.WriteLine("3) Deposit");
+                Console.WriteLine("4) Cancel");
+                Console.WriteLine();
+                Console.WriteLine("What type of transaction would you like?");
+                Console.WriteLine("****************************************");
+                Console.Write("Selection: ");
+                pick = Console.ReadLine();
 
-                case 2:
-                    Withdraw();
-                    break;
+                if (pick == "")
+                {
+                    Console.WriteLine("Sorry, please make a valid selection.");
+                    Console.WriteLine();
+                }
+                switch (pick)
+                {
+                    case "1":
+                        ViewBalance();
+                        break;
 
-                case 3:
-                    Deposit();
-                    break;
+                    case "2":
+                        whileRunning = false;
+                        Withdraw();
+                        break;
 
-                case 4:
-                    Cancel();
-                    break;
+                    case "3":
+                        whileRunning = false;
+                        Deposit();
+                        break;
 
-                default:
-                    Console.WriteLine("Sorry, please make a selection.");
-                    Console.ReadLine();
-                    break;
+                    case "4":
+                        Cancel();
+                        break;
+                }
             }
         }
 
@@ -61,15 +69,31 @@ namespace Lab02_UNIT_TESTING
                 Console.WriteLine("How much would you like to withdraw?");
                 Console.Write("$");
                 decimal withdrawAmt = Convert.ToDecimal(Console.ReadLine());
-                balance = balance - withdrawAmt;
-                Console.WriteLine("Please take your cash");
-                Console.WriteLine($"Your new balance is: ${balance}");
-                Console.ReadLine();
+                if (balance - withdrawAmt > 0)
+                {
+                    balance = balance - withdrawAmt;
+                    Console.WriteLine("Please take your cash");
+                    Console.WriteLine($"Your new balance is: ${balance}");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("Sorry, you have insufficient funds");
+                    Console.ReadLine();
+                    Withdraw();
+                }
             }
             catch (FormatException)
             {
                 Console.WriteLine("Please enter the amount as a number.");
                 Console.ReadLine();
+                Withdraw();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("You hit the generic Exception");
+                Console.WriteLine("ERROR: " + e.Message);
+                Withdraw();
             }
             return balance;
         }
@@ -91,14 +115,20 @@ namespace Lab02_UNIT_TESTING
                 Console.WriteLine("Please enter the amount as a number.");
                 Console.ReadLine();
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("You hit the generic Exception");
+                Console.WriteLine("ERROR: " + e.Message);
+            }
             return balance;
         }
 
         public static void Cancel()
         {
             Console.WriteLine("Thank you for using your Virtual ATM!");
+            Console.WriteLine("Press ENTER to close");
             Console.ReadLine();
-            return;
+            Environment.Exit(0);
         }
     }
 }
