@@ -81,13 +81,12 @@ namespace Lab02_UNIT_TESTING
             }
         }
 
-        public static decimal ViewBalance()
+        public static void ViewBalance()
         {
             Console.WriteLine();
             Console.Write($"Current Balance: ${balance}");
             Console.WriteLine();
             Console.WriteLine();
-            return balance;
         } 
 
         public static string DepositInput()
