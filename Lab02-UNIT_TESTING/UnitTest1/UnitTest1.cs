@@ -7,10 +7,10 @@ namespace UnitTest1
     public class UnitTest1
     {
         [Fact]
-        public void CanViewBalance()
+        public void CanWithdrawAmt()
         {
             Program.balance = 5000;
-            Assert.Equal(Program.balance, Program.ViewBalance());
+            Assert.Equal(4000, Program.Withdraw(1000));
         }
     }
 }

@@ -10,14 +10,16 @@ namespace Lab02_UNIT_TESTING
         // declare Main method
         static void Main(string[] args)
         {
-                        UserInterface();
+            bool whileRunning = true;
+            while (whileRunning == true)
+            {
+                UserInterface();
+            }
         }
 
         public static void UserInterface()
         {
-            string pick;
-            bool whileRunning = true;
-            while (whileRunning == true)
+            try
             {
                 // welcome user and present options
                 Console.WriteLine("********************************************");
@@ -34,33 +36,48 @@ namespace Lab02_UNIT_TESTING
                 Console.WriteLine("********************************************");
                 Console.WriteLine();
                 Console.Write("Your Selection: ");
-                pick = Console.ReadLine();
+                string pick = Console.ReadLine();
 
-                if (pick == "")
-                {
-                    Console.WriteLine("Sorry, please make a valid selection.");
-                    Console.WriteLine();
-                }
                 switch (pick)
                 {
                     case "1":
                         ViewBalance();
+                        AdditionalTransaction();
                         break;
 
                     case "2":
-                        whileRunning = false;
-                        Withdraw();
+                        Withdraw(InputToDecimal(WithdrawInput()));
+                        ViewBalance();
+                        AdditionalTransaction();
                         break;
 
                     case "3":
-                        whileRunning = false;
-                        Deposit();
+                        Deposit(InputToDecimal(DepositInput()));
                         break;
 
                     case "4":
                         Cancel();
                         break;
+
+                    case "":
+                        Console.Clear();
+                        Console.WriteLine($"You did not enter anything. Please try again.");
+                        Console.WriteLine("Press ENTER to continue");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                 }
+            }
+            catch (FormatException)
+            {
+                Console.Clear();
+                Console.WriteLine($"Please enter a valid dollar amount.");
+                Console.WriteLine("Press ENTER to continue");
+                Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Oops! I broke!");
             }
         }
 
@@ -70,76 +87,87 @@ namespace Lab02_UNIT_TESTING
             Console.Write($"Current Balance: ${balance}");
             Console.WriteLine();
             Console.WriteLine();
-            AdditionalTransaction();
-
             return balance;
         } 
 
-        public static decimal Withdraw()
+        public static string DepositInput()
+        {
+            Console.WriteLine("How much would you like to deposit?");
+            Console.Write("$");
+            string input = Console.ReadLine();
+            return input;
+        }
+
+        public static string WithdrawInput()
+        {
+            Console.WriteLine("How much would you like to withdraw?");
+            Console.Write("$");
+            string input = Console.ReadLine();
+            return input;
+        }
+
+        public static decimal InputToDecimal(string input)
         {
             try
             {
-                Console.WriteLine("How much would you like to withdraw?");
-                Console.Write("$");
-                string withdrawAmt = Console.ReadLine();
-                if (Convert.ToDecimal(withdrawAmt) > 0)
+                decimal negative = 0;
+                decimal amount = Convert.ToDecimal(input);
+
+                if (amount < 0)
                 {
-                    if (balance - Convert.ToDecimal(withdrawAmt) > 0)
-                    {
-                        balance = balance - Convert.ToDecimal(withdrawAmt);
-                        Console.WriteLine("Please take your cash");
-                        Console.WriteLine($"Your new balance is: ${balance}");
-                        Console.WriteLine();
-                        AdditionalTransaction();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry, you have insufficient funds");
-                        Console.ReadLine();
-                        Withdraw();
-                    }
+                    Console.WriteLine("Sorry, you have insufficient funds");
+                    return negative;
                 }
                 else
                 {
-                    Console.WriteLine("Please enter a valid amount");
-                    Withdraw();
+                    return amount;
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine($"You did not enter anything. Please try again.");
+                Console.ReadLine();
+                throw;
+            }
+            catch (FormatException)
+            {
+                Console.Clear();
+                Console.WriteLine($"Please enter a valid dollar amount.");
+                Console.WriteLine("Press ENTER to continue");
+                Console.ReadLine();
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static decimal Withdraw(decimal amount)
+        {
+            try
+            {
+                if (balance - amount >= 0)
+                {
+                    balance = balance - amount;
+                }
+                else
+                {
+                    Console.WriteLine("Sorry, you have insufficient funds");
                 }
             }
             catch (FormatException)
             {
                 Console.WriteLine("Please enter the amount as a number.");
+                Console.WriteLine("Press ENTER to continue");
                 Console.ReadLine();
-                Withdraw();
             }
             return balance;
         }
 
-        public static decimal Deposit()
+        public static decimal Deposit(decimal amount)
         {
-            try
-            {
-                Console.WriteLine("How much would you like to deposit?");
-                Console.Write("$");
-                string withdrawAmt = Console.ReadLine();
-                if (Convert.ToDecimal(withdrawAmt) > 0)
-                {
-                    balance = balance + Convert.ToDecimal(withdrawAmt);
-                    Console.WriteLine("Deposit successful");
-                    Console.WriteLine($"Your new balance is: ${balance}");
-                    Console.WriteLine();
-                    AdditionalTransaction();
-                }
-                else
-                {
-                    Console.WriteLine("Please enter a valid amount");
-                    Deposit();
-                }
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Please enter the amount as a number.");
-                Deposit();
-            }
+            balance = balance + amount;
             return balance;
         }
 
@@ -161,9 +189,15 @@ namespace Lab02_UNIT_TESTING
                 Console.Clear();
                 UserInterface();
             }
-            else
+            else if (newTransactionResponse.ToUpper() == "N")
             {
                 Cancel();
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Please provide a valid selection.");
+                AdditionalTransaction();
             }
         }
     }
