@@ -53,6 +53,7 @@ namespace Lab02_UNIT_TESTING
 
                     case "3":
                         Deposit(InputToDecimal(DepositInput()));
+                        ViewBalance();
                         break;
 
                     case "4":
@@ -114,7 +115,12 @@ namespace Lab02_UNIT_TESTING
 
                 if (amount < 0)
                 {
-                    Console.WriteLine("Sorry, you have insufficient funds");
+                    Console.Clear();
+                    Console.WriteLine();
+                    Console.WriteLine("********************************************");
+                    Console.WriteLine("        Please enter a valid amount.");
+                    Console.WriteLine("********************************************");
+                    Console.WriteLine();
                     return negative;
                 }
                 else
@@ -133,7 +139,6 @@ namespace Lab02_UNIT_TESTING
                 Console.Clear();
                 Console.WriteLine($"Please enter a valid dollar amount.");
                 Console.WriteLine("Press ENTER to continue");
-                Console.ReadLine();
                 throw;
             }
             catch (Exception)

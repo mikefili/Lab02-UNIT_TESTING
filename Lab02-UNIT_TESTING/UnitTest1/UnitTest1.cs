@@ -37,5 +37,13 @@ namespace UnitTest1
             Program.balance = 5000;
             Assert.Equal(1000, Program.InputToDecimal(testInput));
         }
+
+        [Fact]
+        public void CanRejectNegativeInput()
+        {
+            string testInput = "-1000";
+            Program.balance = 5000;
+            Assert.Equal(0, Program.InputToDecimal(testInput));
+        }
     }
 }
