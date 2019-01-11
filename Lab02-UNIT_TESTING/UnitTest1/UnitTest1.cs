@@ -29,5 +29,13 @@ namespace UnitTest1
             Program.balance = 5000;
             Assert.Equal(6000, Program.Deposit(depositAmt));
         }
+
+        [Fact]
+        public void CanConvertInput()
+        {
+            string testInput = "1000";
+            Program.balance = 5000;
+            Assert.Equal(1000, Program.InputToDecimal(testInput));
+        }
     }
 }
