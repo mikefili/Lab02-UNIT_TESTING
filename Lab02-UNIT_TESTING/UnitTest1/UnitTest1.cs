@@ -14,5 +14,12 @@ namespace UnitTest1
             Assert.Equal(4000, Program.Withdraw(withdrawAmt));
         }
 
+        [Fact]
+        public void CanDepositAmt()
+        {
+            decimal depositAmt = 1000;
+            Program.balance = 5000;
+            Assert.Equal(6000, Program.Deposit(depositAmt));
+        }
     }
 }
