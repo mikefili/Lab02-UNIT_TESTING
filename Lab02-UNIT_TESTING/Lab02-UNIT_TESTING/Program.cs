@@ -10,9 +10,11 @@ namespace Lab02_UNIT_TESTING
         // declare Main method
         static void Main(string[] args)
         {
+            // keep Main method running continuously until user chooses to exit
             bool whileRunning = true;
             while (whileRunning == true)
             {
+                // run/call UserInterface method
                 UserInterface();
             }
         }
@@ -21,7 +23,7 @@ namespace Lab02_UNIT_TESTING
         {
             try
             {
-                // welcome user and present options
+                // welcomes user and presents options
                 Console.WriteLine("********************************************");
                 Console.WriteLine("      Thank You for Using Virtual ATM!");
                 Console.WriteLine("********************************************");
@@ -36,30 +38,38 @@ namespace Lab02_UNIT_TESTING
                 Console.WriteLine("********************************************");
                 Console.WriteLine();
                 Console.Write("Your Selection: ");
+                // takes in user input and stores it as variable 'pick'
                 string pick = Console.ReadLine();
 
                 switch (pick)
                 {
+                    // if user selects '1' display the balance and inquire about additional transaction
                     case "1":
                         ViewBalance();
                         AdditionalTransaction();
                         break;
 
+                    // if user selects '2' intake desired withdraw amount, complete withdraw,
+                    //display resulting balance and inquire about additional transaction
                     case "2":
                         Withdraw(InputToDecimal(WithdrawInput()));
                         ViewBalance();
                         AdditionalTransaction();
                         break;
 
+                    // if user selects '3' intake desired deposit amount, complete deposit,
+                    //display resulting balance and inquire about additional transaction
                     case "3":
                         Deposit(InputToDecimal(DepositInput()));
                         ViewBalance();
                         break;
 
+                    // if user selects '4' close the app
                     case "4":
                         Cancel();
                         break;
 
+                    // ensure user provides valid selection
                     case "":
                         Console.Clear();
                         Console.WriteLine($"You did not enter anything. Please try again.");
@@ -69,6 +79,7 @@ namespace Lab02_UNIT_TESTING
                         break;
                 }
             }
+            // catch formatting exceptions & ensure user provides valid $ amount
             catch (FormatException)
             {
                 Console.Clear();
@@ -76,20 +87,23 @@ namespace Lab02_UNIT_TESTING
                 Console.WriteLine("Press ENTER to continue");
                 Console.ReadLine();
             }
-            catch (Exception e)
+            // catch general exceptions
+            catch (Exception)
             {
                 Console.WriteLine("Oops! I broke!");
             }
         }
 
+        // method used to display current balance
         public static void ViewBalance()
         {
             Console.WriteLine();
             Console.Write($"Current Balance: ${balance}");
             Console.WriteLine();
             Console.WriteLine();
-        } 
+        }
 
+        // method takes in deposit amount from user as a string & return it as the input string
         public static string DepositInput()
         {
             Console.WriteLine("How much would you like to deposit?");
@@ -98,6 +112,7 @@ namespace Lab02_UNIT_TESTING
             return input;
         }
 
+        // method takes in withdraw amount from user as a string & return it as the input string
         public static string WithdrawInput()
         {
             Console.WriteLine("How much would you like to withdraw?");
@@ -106,15 +121,18 @@ namespace Lab02_UNIT_TESTING
             return input;
         }
 
+        // take in deposit or withdraw amount as a string
         public static decimal InputToDecimal(string input)
         {
             try
             {
                 decimal negative = 0;
+                // convert input string to decimal
                 decimal amount = Convert.ToDecimal(input);
 
                 if (amount < 0)
                 {
+                    // confirm user provided valid amount
                     Console.Clear();
                     Console.WriteLine();
                     Console.WriteLine("********************************************");
@@ -125,15 +143,18 @@ namespace Lab02_UNIT_TESTING
                 }
                 else
                 {
+                    // otherwise, return converted amount
                     return amount;
                 }
             }
+            // ensure user has provided an input value
             catch (ArgumentNullException)
             {
                 Console.WriteLine($"You did not enter anything. Please try again.");
                 Console.ReadLine();
                 throw;
             }
+            // ensure input value is formatted correctly
             catch (FormatException)
             {
                 Console.Clear();
@@ -141,25 +162,30 @@ namespace Lab02_UNIT_TESTING
                 Console.WriteLine("Press ENTER to continue");
                 throw;
             }
+            // catch general exceptions
             catch (Exception)
             {
                 throw;
             }
         }
 
+        // method used to validate withdraw will not overdraft & complete withdraw if so
         public static decimal Withdraw(decimal amount)
         {
             try
             {
+                // if withdraw will not result in overdraft, subtract withdraw amount from current balance
                 if (balance - amount >= 0)
                 {
                     balance = balance - amount;
                 }
+                // if withdraw will result in overdraft, display overdraft message
                 else
                 {
                     Console.WriteLine("Sorry, you have insufficient funds");
                 }
             }
+            // ensure input value is formatted correctly
             catch (FormatException)
             {
                 Console.WriteLine("Please enter the amount as a number.");
@@ -169,12 +195,14 @@ namespace Lab02_UNIT_TESTING
             return balance;
         }
 
+        // method used to add deposit amount to current balance & return new balance
         public static decimal Deposit(decimal amount)
         {
             balance = balance + amount;
             return balance;
         }
 
+        // thank user for using application & close app
         public static void Cancel()
         {
             Console.WriteLine("Thank you for using your Virtual ATM!");
