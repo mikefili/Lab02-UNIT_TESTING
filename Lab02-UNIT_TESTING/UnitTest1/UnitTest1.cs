@@ -15,7 +15,15 @@ namespace UnitTest1
         }
 
         [Fact]
-        public void CantOverdraft()
+        public void CannotWithdrawNegativeAmt()
+        {
+            decimal withdrawAmt = -1000;
+            Program.balance = 5000;
+            Assert.Equal(5000, Program.Withdraw(withdrawAmt));
+        }
+
+        [Fact]
+        public void CannotOverdraft()
         {
             decimal withdrawAmt = 6000;
             Program.balance = 5000;
@@ -54,10 +62,12 @@ namespace UnitTest1
             Assert.Equal(0, Program.InputToDecimal(testInput));
         }
 
-        //[Fact]
-        //public void ()
-        //{
-            
-        //}
+        [Fact]
+        public void CanRejectNonIntegerInput()
+        {
+            string testInput = "twenty";
+            Program.balance = 5000;
+            Assert.Throws<FormatException>(() => Program.InputToDecimal(testInput));
+        }
     }
 }

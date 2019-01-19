@@ -174,12 +174,16 @@ namespace Lab02_UNIT_TESTING
             try
             {
                 // if withdraw will not result in overdraft, subtract withdraw amount from current balance
-                if (balance - amount >= 0)
+                if (amount < 0)
+                {
+                    Console.WriteLine("You cannot deposit a negative amount!");
+                }
+                else if (balance - amount >= 0)
                 {
                     balance = balance - amount;
                 }
                 // if withdraw will result in overdraft, display overdraft message
-                else
+                else if (balance - amount < 0)
                 {
                     Console.WriteLine("Sorry, you have insufficient funds");
                 }
@@ -197,14 +201,23 @@ namespace Lab02_UNIT_TESTING
         // method used to add deposit amount to current balance & return new balance
         public static decimal Deposit(decimal amount)
         {
-            if (amount > 0)
+            try
             {
-                balance = balance + amount;
-                return balance;
+                if (amount > 0)
+                {
+                    balance = balance + amount;
+                    return balance;
+                }
+                else
+                {
+                    Console.WriteLine("You cannot deposit a negative amount!");
+                }
             }
-            else
+            catch (FormatException)
             {
-                Console.WriteLine("You cannot deposit a negative amount!");
+                Console.WriteLine("Please enter the amount as a number.");
+                Console.WriteLine("Press ENTER to continue");
+                Console.ReadLine();
             }
             return balance;
         }
