@@ -31,6 +31,14 @@ namespace UnitTest1
         }
 
         [Fact]
+        public void CannotDepositNegativeAmt()
+        {
+            decimal withdrawAmt = -1000;
+            Program.balance = 5000;
+            Assert.Equal(5000, Program.Deposit(withdrawAmt));
+        }
+
+        [Fact]
         public void CanConvertInput()
         {
             string testInput = "1000";
@@ -45,5 +53,11 @@ namespace UnitTest1
             Program.balance = 5000;
             Assert.Equal(0, Program.InputToDecimal(testInput));
         }
+
+        //[Fact]
+        //public void ()
+        //{
+            
+        //}
     }
 }

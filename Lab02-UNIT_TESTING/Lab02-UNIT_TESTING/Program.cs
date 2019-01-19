@@ -83,8 +83,7 @@ namespace Lab02_UNIT_TESTING
             catch (FormatException)
             {
                 Console.Clear();
-                Console.WriteLine($"Please enter a valid dollar amount.");
-                Console.WriteLine("Press ENTER to continue");
+                Console.WriteLine($"Please enter a valid dollar amount. Press ENTER to continue");
                 Console.ReadLine();
             }
             // catch general exceptions
@@ -198,7 +197,15 @@ namespace Lab02_UNIT_TESTING
         // method used to add deposit amount to current balance & return new balance
         public static decimal Deposit(decimal amount)
         {
-            balance = balance + amount;
+            if (amount > 0)
+            {
+                balance = balance + amount;
+                return balance;
+            }
+            else
+            {
+                Console.WriteLine("You cannot deposit a negative amount!");
+            }
             return balance;
         }
 
