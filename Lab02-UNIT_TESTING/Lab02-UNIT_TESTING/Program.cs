@@ -83,8 +83,7 @@ namespace Lab02_UNIT_TESTING
             catch (FormatException)
             {
                 Console.Clear();
-                Console.WriteLine($"Please enter a valid dollar amount.");
-                Console.WriteLine("Press ENTER to continue");
+                Console.WriteLine($"Please enter a valid dollar amount. Press ENTER to continue");
                 Console.ReadLine();
             }
             // catch general exceptions
@@ -175,12 +174,16 @@ namespace Lab02_UNIT_TESTING
             try
             {
                 // if withdraw will not result in overdraft, subtract withdraw amount from current balance
-                if (balance - amount >= 0)
+                if (amount < 0)
+                {
+                    Console.WriteLine("You cannot deposit a negative amount!");
+                }
+                else if (balance - amount >= 0)
                 {
                     balance = balance - amount;
                 }
                 // if withdraw will result in overdraft, display overdraft message
-                else
+                else if (balance - amount < 0)
                 {
                     Console.WriteLine("Sorry, you have insufficient funds");
                 }
@@ -198,7 +201,24 @@ namespace Lab02_UNIT_TESTING
         // method used to add deposit amount to current balance & return new balance
         public static decimal Deposit(decimal amount)
         {
-            balance = balance + amount;
+            try
+            {
+                if (amount > 0)
+                {
+                    balance = balance + amount;
+                    return balance;
+                }
+                else
+                {
+                    Console.WriteLine("You cannot deposit a negative amount!");
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please enter the amount as a number.");
+                Console.WriteLine("Press ENTER to continue");
+                Console.ReadLine();
+            }
             return balance;
         }
 
